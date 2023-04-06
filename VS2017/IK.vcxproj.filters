@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Vega">
+      <UniqueIdentifier>{18c579be-61b2-41af-bb56-ff4a7bea0e45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\skinning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\camera.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\cameraLighting.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\configFile.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\handleControl.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\handleRender.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\inputDevice.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\lighting.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\listIO.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\mat3d.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\mat4d.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\matrixIO.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\objMesh.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\objMeshRender.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\openGLHelper.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\sceneObject.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\sceneObjectDeformable.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\sceneObjectWithRestPosition.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\vec3d.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vega\averagingBuffer.cpp">
+      <Filter>Vega</Filter>
+    </ClCompile>
+    <ClCompile Include="..\driver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\skeletonRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\minivectorTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\skinning.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\averagingBuffer.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\basicAlgorithms.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\camera.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\cameraLighting.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\configFile.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\containerHelper.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\graphSearchAlgorithms.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\handleControl.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\handleRender.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\inputDevice.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\lighting.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\listIO.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\macros.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\mat3d.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\mat4d.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\matrixIO.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\matrixMacros.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\objMesh.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\objMeshRender.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\openGL-headers.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\openGLHelper.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\performanceCounter.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\sceneObject.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\sceneObjectDeformable.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\sceneObjectWithRestPosition.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\valueIndex.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\vec3d.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\vec4d.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\vegalong.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\skeletonRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vega\transform4d.h">
+      <Filter>Vega</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

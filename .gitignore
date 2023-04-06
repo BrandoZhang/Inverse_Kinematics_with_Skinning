@@ -1,0 +1,10 @@
+
+
+# IDE
+.idea
+.vs
+
+# System
+.DS_Store
+
+# Project Specific

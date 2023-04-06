@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{C82F778C-C535-4907-B7AB-CCC02D0931E0}</ProjectGuid>
+    <RootNamespace>IK</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\eigen;$(ProjectDir)\..\vega;$(ProjectDir)\..;$(ProjectDir)\..\freeglut-x64\include;$(ProjectDir)\..\adolc\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>freeglutd.lib;adolc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\freeglut-x64\$(Configuration)\;$(ProjectDir)\..\adolc\Win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\eigen;$(ProjectDir)\..\vega;$(ProjectDir)\..;$(ProjectDir)\..\freeglut-x64\include;$(ProjectDir)\..\adolc\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>freeglut.lib;adolc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\freeglut-x64\$(Configuration)\;$(ProjectDir)\..\adolc\Win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\driver.cpp" />
+    <ClCompile Include="..\FK.cpp" />
+    <ClCompile Include="..\IK.cpp" />
+    <ClCompile Include="..\skeletonRenderer.cpp" />
+    <ClCompile Include="..\skinning.cpp" />
+    <ClCompile Include="..\vega\averagingBuffer.cpp" />
+    <ClCompile Include="..\vega\camera.cpp" />
+    <ClCompile Include="..\vega\cameraLighting.cpp" />
+    <ClCompile Include="..\vega\configFile.cpp" />
+    <ClCompile Include="..\vega\handleControl.cpp" />
+    <ClCompile Include="..\vega\handleRender.cpp" />
+    <ClCompile Include="..\vega\inputDevice.cpp" />
+    <ClCompile Include="..\vega\lighting.cpp" />
+    <ClCompile Include="..\vega\listIO.cpp" />
+    <ClCompile Include="..\vega\mat3d.cpp" />
+    <ClCompile Include="..\vega\mat4d.cpp" />
+    <ClCompile Include="..\vega\matrixIO.cpp" />
+    <ClCompile Include="..\vega\objMesh.cpp" />
+    <ClCompile Include="..\vega\objMeshRender.cpp" />
+    <ClCompile Include="..\vega\openGLHelper.cpp" />
+    <ClCompile Include="..\vega\sceneObject.cpp" />
+    <ClCompile Include="..\vega\sceneObjectDeformable.cpp" />
+    <ClCompile Include="..\vega\sceneObjectWithRestPosition.cpp" />
+    <ClCompile Include="..\vega\vec3d.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\FK.h" />
+    <ClInclude Include="..\IK.h" />
+    <ClInclude Include="..\minivectorTemplate.h" />
+    <ClInclude Include="..\skeletonRenderer.h" />
+    <ClInclude Include="..\skinning.h" />
+    <ClInclude Include="..\vega\averagingBuffer.h" />
+    <ClInclude Include="..\vega\basicAlgorithms.h" />
+    <ClInclude Include="..\vega\camera.h" />
+    <ClInclude Include="..\vega\cameraLighting.h" />
+    <ClInclude Include="..\vega\configFile.h" />
+    <ClInclude Include="..\vega\containerHelper.h" />
+    <ClInclude Include="..\vega\graphSearchAlgorithms.h" />
+    <ClInclude Include="..\vega\handleControl.h" />
+    <ClInclude Include="..\vega\handleRender.h" />
+    <ClInclude Include="..\vega\inputDevice.h" />
+    <ClInclude Include="..\vega\lighting.h" />
+    <ClInclude Include="..\vega\listIO.h" />
+    <ClInclude Include="..\vega\macros.h" />
+    <ClInclude Include="..\vega\mat3d.h" />
+    <ClInclude Include="..\vega\mat4d.h" />
+    <ClInclude Include="..\vega\matrixIO.h" />
+    <ClInclude Include="..\vega\matrixMacros.h" />
+    <ClInclude Include="..\vega\objMesh.h" />
+    <ClInclude Include="..\vega\objMeshRender.h" />
+    <ClInclude Include="..\vega\openGL-headers.h" />
+    <ClInclude Include="..\vega\openGLHelper.h" />
+    <ClInclude Include="..\vega\performanceCounter.h" />
+    <ClInclude Include="..\vega\sceneObject.h" />
+    <ClInclude Include="..\vega\sceneObjectDeformable.h" />
+    <ClInclude Include="..\vega\sceneObjectWithRestPosition.h" />
+    <ClInclude Include="..\vega\transform4d.h" />
+    <ClInclude Include="..\vega\valueIndex.h" />
+    <ClInclude Include="..\vega\vec3d.h" />
+    <ClInclude Include="..\vega\vec4d.h" />
+    <ClInclude Include="..\vega\vegalong.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

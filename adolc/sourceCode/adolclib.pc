@@ -1,0 +1,11 @@
+prefix=/Users/barbic/software/adolc_base
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib64
+includedir=${prefix}/include
+
+Name: adolc
+Version: 2.7.0-trunk
+Description: Algorithmic Differentiation Library for C/C++
+Requires: 
+Libs: -L${libdir} -ladolc -Wl,-rpath,${libdir}  -L/opt/local/lib -lboost_system-mt 
+Cflags: -I${includedir}
