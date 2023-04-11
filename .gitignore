@@ -39,3 +39,5 @@
 .DS_Store
 
 # Project Specific
+VS2017/x64/Debug
+/motion-capture-prototype/node_modules/

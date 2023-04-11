@@ -10,6 +10,13 @@
 // CSCI 520 Computer Animation and Simulation
 // Jernej Barbic and Yijing Li
 
+enum SkinningMethod
+{
+    LinearBlendSkinning = 0,
+    DualQuaternionSkinning
+};
+inline SkinningMethod getDefaultSkinningMethod() { return LinearBlendSkinning; }
+
 class Skinning
 {
 public:
@@ -25,6 +32,8 @@ public:
   // input: jointSkinTransforms
   // output: newMeshVertexPositions (length is 3*numMeshVertices)
   void applySkinning(const RigidTransform4d * jointSkinTransforms, double * newMeshVertexPositions) const;
+
+  SkinningMethod appliedSkinningMethod = getDefaultSkinningMethod();
 
 protected:
   int numMeshVertices = 0;

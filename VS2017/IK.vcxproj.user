@@ -6,8 +6,8 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>skin.config</LocalDebuggerCommandArguments>
-    <LocalDebuggerWorkingDirectory>$(ProjectDir)\..\armadillo\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerCommandArguments>skin.config k l</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)\..\hand\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

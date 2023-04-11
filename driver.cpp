@@ -3,6 +3,30 @@
 // CSCI 520 Computer Animation and Simulation
 // Jernej Barbic and Yijing Li
 
+
+#include <vector>
+#include <set>
+#include <stdlib.h>
+#include <stdio.h>
+#include <climits>
+#include <iostream>
+#include <math.h>
+#include <time.h>
+#include <cmath>
+
+#ifndef ASIO_STANDALONE
+#define ASIO_STANDALONE
+#endif // !ASIO_STANDALONE
+#ifndef _WEBSOCKETPP_CPP11_TYPE_TRAITS_
+#define _WEBSOCKETPP_CPP11_TYPE_TRAITS_
+#endif // !_WEBSOCKETPP_CPP11_TYPE_TRAITS_
+#include <websocketpp/config/asio_no_tls.hpp>
+#include <websocketpp/server.hpp>
+#include <chrono>
+#include <mutex>
+#include <condition_variable>
+#include <json.hpp>
+
 #include "sceneObjectDeformable.h"
 #include "lighting.h"
 #include "cameraLighting.h"
@@ -21,20 +45,15 @@
 #include "handleControl.h"
 #include "skeletonRenderer.h"
 #ifdef WIN32
-  #include <windows.h>
+#include <windows.h>
 #endif
-#include <vector>
-#include <set>
-#include <stdlib.h>
-#include <stdio.h>
-#include <climits>
-#include <iostream>
-#include <math.h>
-#include <time.h>
-#include <cmath>
 
 #include <adolc/adolc.h>
 using namespace std;
+
+using json = nlohmann::json;
+
+typedef websocketpp::server<websocketpp::config::asio> server;
 
 static string meshFilename;
 static string configFilename;
@@ -85,7 +104,47 @@ static AveragingBuffer fpsBuffer(5);
 static vector<int> IKJointIDs;
 static vector<Vec3d> IKJointPos;
 
+IKMethod IKMETHOD = Tikhonov;
+SkinningMethod SKINNINGMETHOD = LinearBlendSkinning;
+
+const int mediaPipeHand2ProjectJointID[21] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19, 20, 21, 22, 15, 16, 17, 18};
+const int IKJointID2MediaPipeHand[5] = {4, 8, 12, 16, 20};
+std::queue<std::vector<Vec3d>> end_effector_positions;
+std::vector<Vec3d> last_used_end_effector_positions;
+std::mutex end_effector_positions_mutex;
+std::condition_variable end_effector_positions_cv;
+
 //======================= Functions =============================
+
+// Handle incoming landmarks from websockets
+void on_message(server* s, websocketpp::connection_hdl hdl, server::message_ptr msg) {
+    try {
+        // Parse the received JSON data
+        json data = json::parse(msg->get_payload());
+
+        // Create a vector to store the end effector positions for this prediction
+        std::vector<Vec3d> current_prediction_positions;
+
+        // Extract landmarks from the JSON data
+        for (int i = 0; i < 21; i++) {
+            auto& lm = data["landmarks"][i];
+            Vec3d position(lm["x"], lm["y"], lm["z"]);
+
+            // Add the end effector position to the current prediction positions
+            current_prediction_positions.push_back(position);
+        }
+
+        // Push the new end effector positions into the queue
+        {
+            std::lock_guard<std::mutex> lock(end_effector_positions_mutex);
+            end_effector_positions.push(current_prediction_positions);
+        }
+        end_effector_positions_cv.notify_one();
+    }
+    catch (std::exception& e) {
+        std::cout << "Error parsing JSON: " << e.what() << std::endl;
+    }
+}
 
 static void updateSkinnedMesh()
 {
@@ -132,6 +191,40 @@ static void idleFunction()
   };
   handleControl.processHandleMovement(id.getMousePosX(), id.getMousePosY(), id.shiftPressed(), processDrag);
 
+  if (fk->getNumJoints() == 23)  // hand model
+  {
+      // Check for new end effector positions
+      std::unique_lock<std::mutex> lock(end_effector_positions_mutex);
+      end_effector_positions_cv.wait_for(lock, std::chrono::milliseconds(5), [] { return !end_effector_positions.empty(); });
+
+      while (!end_effector_positions.empty()) {
+          // Initialize the last used end effector positions
+          if (last_used_end_effector_positions.empty()) 
+          {
+			  last_used_end_effector_positions = end_effector_positions.front();
+			  end_effector_positions.pop();
+			  continue;
+		  }
+          // Get the next end effector position from the queue
+          std::vector<Vec3d> positions = end_effector_positions.front();
+          end_effector_positions.pop();
+          lock.unlock();
+
+          // Set the actual end effector position
+          for (int idx = 0; idx < 5; idx++)
+          {
+              int jointIDinMediaPipeHand = IKJointID2MediaPipeHand[idx];
+              Vec3d jointPos = fk->getJointGlobalPosition(IKJointIDs[idx]);
+              Vec3d offset = positions[jointIDinMediaPipeHand] - last_used_end_effector_positions[jointIDinMediaPipeHand];
+              IKJointPos[idx] += 8 * offset;
+          }
+          last_used_end_effector_positions = positions;
+
+          // Lock the mutex again for the next iteration
+          lock.lock();
+      }
+  }
+
   const int maxIKIters = 10;
   const double maxOneStepDistance = modelRadius / 1000;
 
@@ -151,7 +244,20 @@ static void idleFunction()
 
     // update menu bar
     char windowTitle[4096];
-    sprintf(windowTitle, "Vertices: %d | %.1f FPS | graphicsFrame %d ", meshDeformable->Getn(), fpsBuffer.getAverage(), graphicsFrameID);
+    const char * IKMethodName;
+    if (IKMETHOD == PseudoInverse)
+      IKMethodName = "PseudoInverse";
+    else if (IKMETHOD == Tikhonov)
+      IKMethodName = "Tikhonov";
+    else
+      IKMethodName = "Kernel Trick Tikhonov";
+    const char * SkinningMethodName;
+    if (SKINNINGMETHOD == DualQuaternionSkinning)
+      SkinningMethodName = "Dual Quaternion Skinning";
+    else
+      SkinningMethodName = "Linear Blend Skinning";
+
+    sprintf(windowTitle, "Vertices: %d | %.1f FPS | graphicsFrame %d | IK Method: %s | Skinning Method: %s", meshDeformable->Getn(), fpsBuffer.getAverage(), graphicsFrameID, IKMethodName, SkinningMethodName);
     glutSetWindowTitle(windowTitle);
     titleBarFrameCounter = 0;
   }
@@ -500,10 +606,13 @@ static void initialize()
   skinning = new Skinning(meshDeformable->Getn(), meshDeformable->GetVertexRestPositions(), jointWeightsFilename);
   fk = new FK(jointHierarchyFilename, jointRestTransformsFilename);
 
+  skinning->appliedSkinningMethod = SKINNINGMETHOD;
+
   // ---------------------------------------------------
   // Setting up Adol-c
   // ---------------------------------------------------
   ik = new IK(IKJointIDs.size(), IKJointIDs.data(), fk);
+  ik->appliedIKMethod = IKMETHOD;
   IKJointPos.resize(IKJointIDs.size());
   for(size_t i = 0; i < IKJointIDs.size(); i++)
   {
@@ -594,15 +703,36 @@ static void initConfigurations()
 
 int main (int argc, char ** argv)
 {
-  int numFixedArgs = 2;
+  int numFixedArgs = 4;
   if ( argc < numFixedArgs )
   {
     cout << "Renders an obj mesh on the screen." << endl;
-    cout << "Usage: " << argv[0] << " configFilename" << endl;
+    cout << "Usage: " << argv[0] << " <configFilename>" << " <Inverse Kinematics Method>" << " <Skinning Method>" << endl;
+    cout << "  Inverse Kinematics Method:" << endl;
+    cout << "    t: Tikhonov Regularization Inverse Kinematics Method" << endl;
+    cout << "    p: Pseudo Inverse Method" << endl;
+    cout << "    k: Tikhonov Regularization Inverse Kinematics Method with Kernel Trick" << endl;
+    cout << "  Skinning Method:" << endl;
+    cout << "    l: Linear Blend Skinning" << endl;
+    cout << "    d: Dual Quaternion Skinning" << endl;
+    cout << "Example: " << argv[0] << " skin.config " << "t " << "l" << endl;
     return 0;
   }
  
   configFilename = argv[1];
+  char * IKMethodString = argv[2];
+  if (IKMethodString[0] == 'p')
+    IKMETHOD = PseudoInverse;
+  else if (IKMethodString[0] == 't')
+    IKMETHOD = Tikhonov;
+  else
+    IKMETHOD = KernelTrickOnTikhonov;
+  
+  char* SkinningMethodString = argv[3];
+  if (SkinningMethodString[0] == 'd')
+    SKINNINGMETHOD = DualQuaternionSkinning;
+  else
+    SKINNINGMETHOD = LinearBlendSkinning;
 
   initConfigurations();
 
@@ -625,6 +755,20 @@ int main (int argc, char ** argv)
 
   initialize();
 
+  // Initialize the WebSocket server
+  websocketpp::server<websocketpp::config::asio> server;
+  server.set_access_channels(websocketpp::log::alevel::all);
+  server.clear_access_channels(websocketpp::log::alevel::frame_payload);
+  server.set_message_handler(std::bind(&on_message, &server, std::placeholders::_1, std::placeholders::_2));
+
+  // Start the WebSocket server in a separate thread
+  std::thread server_thread([&server]() {
+      server.init_asio();
+      server.listen(9002);
+      server.start_accept();
+      server.run();
+      });
+
   // callbacks
   glutDisplayFunc(displayFunction);
   glutMotionFunc(mouseDrag);
@@ -637,6 +781,11 @@ int main (int argc, char ** argv)
 
   reshape(windowWidth,windowHeight);
   glutMainLoop();
+
+  // When stop the server and close the application,
+  // call server.stop() and then join the server_thread:
+  server.stop();
+  server_thread.join();
 
   return(0);
 }

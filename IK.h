@@ -12,6 +12,14 @@
 class FK;
 class Vec3d;
 
+enum IKMethod
+{
+    Tikhonov = 0,
+    PseudoInverse,
+    KernelTrickOnTikhonov
+};
+inline IKMethod getDefaultIKMethod() { return Tikhonov; }
+
 class IK
 {
 public:
@@ -31,6 +39,9 @@ public:
   int getFKOutputDim() const { return FKOutputDim; }
   int getIKInputDim() const { return FKOutputDim; }
   int getIKOutputDim() const { return FKInputDim; }
+
+  double alpha = 0.008;  // amount of regulation for Tikhonov method
+  IKMethod appliedIKMethod = getDefaultIKMethod();  // applied IK Method
 
 protected:
   int numIKJoints = 0;

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion Capture Prototype</title>
+</head>
+<body>
+<div id="liveView" class="videoView">
+    <button id="webcamButton" class="mdc-button mdc-button--raised">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">ENABLE WEBCAM</span>
+    </button>
+    <div style="position: relative;">
+        <video id="webcam" style="width: 1280px; height: 720px; position: abso" autoplay playsinline></video>
+        <canvas class="output_canvas" id="output_canvas" width="1280" height="720" style="position: absolute; left: 0px; top: 0px;"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+<script type="module" src="client.js"></script>
+</body>
+</html>
