@@ -6,9 +6,9 @@ The character mesh is represented as an `.obj` file, and skinning weights and sk
 The implementation was done in C++, leveraging Eigen for linear algebra, ADOL-C for automatic differentiation, and OpenGL for rendering.
 The project includes several methods for skinning and IK, and features a motion capture prototype using MediaPipe-based hand tracking.
 
-|                      Skinning Demo                      |                     Motion Capture Prototype                     |
-|:-------------------------------------------------------:|:----------------------------------------------------------------:|
-| ![Teaser-Dragon Model](docs/Teaser_Skinning_Dragon.png) | ![LBS Skinning Result](docs/Teaser_Motion_Capture_Prototype.png) |
+|                       Skinning Demo                       |                      Motion Capture Prototype                      |
+|:---------------------------------------------------------:|:------------------------------------------------------------------:|
+| ![Teaser-Dragon Model](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/Teaser_Skinning_Dragon.png) | ![LBS Skinning Result](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/Teaser_Motion_Capture_Prototype.png) |
 
 ## Functionalities
 
@@ -22,10 +22,10 @@ The project includes several methods for skinning and IK, and features a motion 
 
 1. **Implemented Dual-Quaternion Skinning (DQS) and provided a comparison between Linear Blend Skinning (LBS) and Dual Quaternion Skinning (DQS).**
 
-    |                 |             Linear Blend Skinning             |           Dual-Quaternion Skinning            |
-    |:---------------:|:---------------------------------------------:|:---------------------------------------------:|
-    | Skinning Result | ![LBS Skinning Result](docs/LBS_artifact.jpg) |     ![DQS Skinning Result](docs/DQS.jpg)      | 
-    | FPS             |                     56.3                      |                      9.3                      |
+    |                 |                                                  Linear Blend Skinning                                                  |                                            Dual-Quaternion Skinning                                            |
+    |:-----------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|:---------------------------------------------:|
+    | Skinning Result | ![LBS Skinning Result](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/LBS_artifact.jpg) | ![DQS Skinning Result](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/DQS.jpg) | 
+    | FPS             |                                                          56.3                                                           |                                                      9.3                                                       |
 
     As shown above, at some extreme poses (especially in areas with twisting joints), Linear Blend Skinning may cause _Candy Wrapper_ problem (shown in red box), while Dual-Quaternion Skinning (DQS) significantly mitigates it.
     DQS uses dual quaternions to represent transformations, which provides a more accurate interpolation of rotations and translations. This method leads to a more natural deformation of the mesh and significantly reduces the Candy Wrapper problem.
@@ -39,9 +39,9 @@ The project includes several methods for skinning and IK, and features a motion 
     where, $\mathbf{J}^{\dagger} = \mathbf{J}^T (\mathbf{J} \mathbf{J}^T)^{-1}$ is the pseudo inverse of $\mathbf{J}$.
     Although Pseudo Inverse IK method calculates faster than Tikhonov IK method, Pseudo Inverse IK method tends to be unstable for large deformation.
 
-    | Pseudo Inverse                            |            Tikhonov Regulation            |
+    | Pseudo Inverse                             |            Tikhonov Regulation            |
     |:-----------------------------------------:|:-----------------------------------------:|
-    | ![Pseudo Inverse](docs/Pseudoinverse.png) | ![Tikhonov Regulation](docs/Tikhonov.png) |
+    | ![Pseudo Inverse](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/Pseudoinverse.png) | ![Tikhonov Regulation](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/Tikhonov.png) |
 
 3. **Implemented Tikhonov IK method with kernel trick and provided a comparison.**
 
@@ -77,7 +77,7 @@ The project includes several methods for skinning and IK, and features a motion 
 
 5. **Display in applied IK method and skinning method in the menu bar.**
 
-    ![Menu Bar](docs/menu_bar.jpg)
+    ![Menu Bar](https://github.com/BrandoZhang/Inverse_Kinematics_with_Skinning/blob/main/docs/menu_bar.jpg)
 
 6. **Integrated MediaPipe hand tracking to create a motion capture prototype, allowing users to interact with the 3D model in real-time.**
 
